@@ -1,4 +1,4 @@
-# Learn The Basics of React
+# Learn the Basics of React
 Tutorial on React Js
 
 # Basic Concepts
