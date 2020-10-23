@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Learn JSX</title>
+        <style>
+            .btn{
+                border: unset;
+                padding: .7rem;
+                margin: .6rem;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="root">
+        </div>
+    </body>
+</html>
+<script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+<script type="text/babel">
+   const rootEle =document.getElementById("root");
+
+   function FancyButton(props)
+   {
+       const bgColor=props.backgroundColor ? props.backgroundColor : "red";
+       const color =  props.color ? props.color : "white" 
+       const styles ={backgroundColor:bgColor  , color:color};
+       return <button className="btn"  style={styles}  >Click Me</button>
+   }
+
+   const parentTemp =(
+                      <div>
+                          <p>Just Learning Component</p>
+                          <FancyButton backgroundColor="green"  color ="blue"/>
+                          <FancyButton backgroundColor="blue"/>
+                          <FancyButton/>
+                      </div>
+                     );
+
+   ReactDOM.render(parentTemp, rootEle); 
+
+</script>
