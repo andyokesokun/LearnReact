@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Learning React States</title>
+    </head>
+    <body>
+        <div id="root">
+        </div>
+    </body>
+</html>
+<script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+<script type="text/babel">
+   const rootEle =document.getElementById("root");
+
+   function TvSet(){
+       const [currentChannel,setCurrentChannel] =React.useState(1);
+       const [previousChannel, setPreviousChannel] = React.useState(1);
+
+        function nextChannel(){
+            setPreviousChannel(currentChannel);
+            if(currentChannel == 9){
+                setCurrentChannel(0);
+            }else{
+                setCurrentChannel(currentChannel + 1)
+            }
+
+        }
+      
+      function prevChannel(){
+          setPreviousChannel(currentChannel);
+          if(currentChannel == 0){
+             setCurrentChannel(9);
+          }else{
+              setCurrentChannel(currentChannel - 1);
+          }
+      }
+
+      function changeChannel(channelNumber){
+            setPreviousChannel(currentChannel);
+            setCurrentChannel(channelNumber)
+      }
+
+      function altChannel(){
+          setPreviousChannel(currentChannel);
+          setCurrentChannel(previousChannel);
+      }
+
+       return (
+           <div>
+              <p>Current Channel : {currentChannel}</p>
+              <RemoteControl fn={{next:nextChannel , prev:prevChannel, alt:altChannel, change:changeChannel}} />
+           </div>
+       )
+
+   }
+
+   function RemoteControl(props){
+       const keyPads = [1,2,3,4,5,6,7,8,9];
+
+       return(
+           <div>
+              {keyPads.map(keyPad => <button key={keyPad}  onClick={()=> props.fn.change(keyPad) } >{keyPad}</button>  ) }
+              <button onClick={()=> props.fn.next()} >Next</button>
+              <button onClick={()=> props.fn.prev() } >Previous</button>
+              <button onClick={()=> props.fn.alt()}>Alt</button>
+           </div>
+       )
+   }
+
+   function App(){
+       return (
+           <div>
+              <TvSet/>
+           </div>
+       )
+   }
+
+   ReactDOM.render(<App/>, rootEle);
+   
+
+</script>
